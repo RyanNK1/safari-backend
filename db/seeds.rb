@@ -139,7 +139,7 @@ require 'faker'
     )
   end
   
-  # Create seed data for Users table
+  # Creat seed data for Users table
   10.times do
     User.create(
       first_name: Faker::Name.first_name,
