@@ -1,4 +1,6 @@
 class PaymentsController < ApplicationController
+    before_action :authenticate_user!, except: [:webhook]
+
     rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
 
     def index
