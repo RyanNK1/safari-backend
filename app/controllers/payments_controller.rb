@@ -1,6 +1,8 @@
 class PaymentsController < ApplicationController
     before_action :authenticate_user!, except: [:webhook]
 
+    skip_before_action :verify_authenticity_token, only: [:webhook]
+
     rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
 
     def index
