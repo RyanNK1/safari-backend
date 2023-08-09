@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+    before_action :set_user, only: %i[show update destroy]
+
     rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
 
     def index
