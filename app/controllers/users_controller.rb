@@ -1,6 +1,8 @@
 class UsersController < ApplicationController
     before_action :set_user, only: %i[show update destroy]
 
+    wrap_parameters :user, include: %i[first_name last_name phone email username bio avatar password password_confirmation]
+
     rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
 
     def index
