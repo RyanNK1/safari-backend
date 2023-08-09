@@ -16,8 +16,30 @@ class PaymentsController < ApplicationController
     end
 
     def create
-        payment= Payment.create(payment_params)
-        render json: payment, status: :created
+        
+        Stripe.api_key = Rails.application.secrets.stripe_secret_key
+
+        token = params[:token]
+        amount = params[:amount]
+
+        begin
+        charge = Stripe::Charge.create(
+            amount: amount,
+            currency: 'usd', 
+            source: token,
+            description: 'Example payment'
+        )
+
+        # Handle the success response
+        render json: { status: 'success', message: 'Payment successful!' }
+        rescue Stripe::CardError => e
+        # Handle card errors
+        render json: { status: 'unprocessable_entity', message: 'Payment failed. Please try again later' }
+        rescue Stripe::StripeError => e
+        # Handle other Stripe-related errors
+        render json: { status: 'unprocessable_entity', message: 'Payment failed. Please try again later' }
+        end
+    end
     end
     
     def update
