@@ -4,6 +4,11 @@ class ApplicationController < ActionController::API
 
     before_action :authenticate_user
 
+    # Include the Stripe configuration
+    require 'stripe'
+    Stripe.api_key = 'sk_test_51NaYCPKKk5JD00V8GrPmR6uI8fhwZkdXvgGkF6kYaHcSOTA0g1dyoWhpFmkV2qBAH2CPDl8KiXYZfSqHRwiKEiQ3008ecRaBMs'
+
+
     private
 
     # This method is used to authenticate the user based on the user_id stored in the session or token.
