@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "articles#index"
 
+  post '/postPayment', to: 'payments#create'
 
   # /sessions
   resources :sessions, only: %i[create destroy]
