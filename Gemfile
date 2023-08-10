@@ -50,5 +50,7 @@ end
 
 gem 'active_model_serializers'
 
+gem 'activerecord-session_store'
+
 gem 'faker'
 
