@@ -1,63 +1,41 @@
 class UsersController < ApplicationController
-    before_action :set_user, only: %i[show update destroy]
-
-    wrap_parameters :user, include: %i[first_name last_name phone email username bio avatar password password_confirmation]
-
-    rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
+    before_action :require_login
 
     def index
-        users=User.all
+        users = User.all
         render json: users
     end
 
-    def show
-        render json: @user
+    def show_me
+        user = current_user
+
+        if user
+          render json: user
+        else
+          render json: { error: 'Not authorized' }, status: :unauthorized 
+        end        
     end
 
     def create
-        @user = User.new(user_params)
- 
-        if @user.save
-            token = encode_token({ user_id: @user.id })
-            render json: { user: UserSerializer.new(@user), token: token }, status: :created
+        user = User.create(user_params)
+
+        if user.valid?
+          render json: user, status: :created
         else
-            render json: {errors: @user.errors.full_messages }, status: :unprocessable_entity
-     end
-    end
-    
-    def update
-        if @user.update(user_params)
-            render json: UserSerializer.new(@user)
-        else
-            render json: { errors: @user.errors.full_messages }, status: :unprocessable_entity
+          render json: { errors: user.errors.full_messages }, status: :unprocessable_entity
         end
     end
     
-    def destroy
-        @user.destroy
-        head :no_content
-    end
-
-    def login
-        @user = User.find_by(username: login_params[:username])
-    
-        if @user&.authenticate(login_params[:password])
-          token = encode_token({ user_id: @user.id })
-          render json: { user: UserSerializer.new(@user) }, status: :accepted, token: token
+    def homepage
+        user = current_user
+        if user
+          render json: { message: 'Welcome to the user homepage!' }
         else
-          render json: { message: 'Invalid username or password', status: 'error' }, status: :unauthorized
+          render json: { error: 'Not authorized' }, status: :unauthorized
         end
-      end
-
-    def logout
-        render json: { message: 'Logout successful' }, status: :ok
     end
-
+    
     private
-
-    def set_user
-        @user.find(params[:id])
-    end
     
     def user_params
         params.permit(:FirstName, :LastName, :Username, :DOB, :Email, :Password, :ConfirmPassword)
