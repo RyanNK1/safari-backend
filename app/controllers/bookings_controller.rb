@@ -50,7 +50,7 @@ class BookingsController < ApplicationController
     end
     
     def booking_params
-        params.permit(:package_id, :DaysBooked, :NumberOfPeople)
+        params.permit(:package_id, :days_booked, :number_of_people)
     end
     
     def render_not_found_response

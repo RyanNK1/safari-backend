@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_06_194316) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_10_063105) do
   create_table "activities", force: :cascade do |t|
     t.boolean "hiking"
     t.boolean "sight_seeing"
@@ -21,6 +21,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_06_194316) do
     t.boolean "cultural_tour"
     t.boolean "city_tour"
     t.boolean "kid_activities"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "admins", force: :cascade do |t|
+    t.string "admin_name"
+    t.string "email"
+    t.string "password"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

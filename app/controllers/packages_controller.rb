@@ -3,7 +3,7 @@ class PackagesController < ApplicationController
 
     def index
         package=Package.all
-        render json: package
+        render json: package, status: :ok
     end
 
     def show
@@ -44,7 +44,7 @@ class PackagesController < ApplicationController
     end
     
     def package_params
-        params.permit(:PackageName, :RecommendedHotel, :Location, :Image, :PricePerDay, :Description, :MaximumNoOfPeople)
+        params.permit(:package_name, :recommended_hotel, :location, :image, :price_per_day, :description, :maximum_no_of_people)
     end
     
     def render_not_found_response

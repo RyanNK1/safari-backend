@@ -59,7 +59,7 @@ class PaymentsController < ApplicationController
     end
     
     def payment_params
-        params.permit(:package_id, :booking_id, :action_id, :CardNumber, :ExpirationDate, :CVC, :DatePaid, :PricePerDay, :NumberOfPeople, :TotalAmountPerDay, :DaysBooked, :TotalAmount)
+        params.permit(:package_id, :booking_id, :card_number, :expiration_date, :cvc, :date_paid, :total_amount)
     end
     
     def render_not_found_response

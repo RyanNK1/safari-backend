@@ -1,3 +1,3 @@
 class Activity < ApplicationRecord
-    belongs_to :package
+    # belongs_to :package
 end
