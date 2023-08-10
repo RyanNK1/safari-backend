@@ -1,29 +1,41 @@
 class SessionsController < ApplicationController
-    skip_before_action :authenticate_user, only: [:create]
-
-    wrap_parameters :user, include: %i[username password]
-
-    def create
-        @user = User.find_by(username: login_params[:username])
+  def create
+    user = User.find_by(username: params[:username])
       
-        if @user&.authenticate(login_params[:password])
-          session[:user_id] = @user.id
-  
-          render json: { user: UserSerializer.new(@user), status: 'ok' }, status: :accepted
-        else
-          render json: { message: 'Invalid username or password', status: 'error' }, status: :unauthorized
-        end
+    if user&.authenticate(params[:password])
+      create_user_session(user)
+      render_success("User logged in successfully")
+    else
+      render_unauthorized("Invalid username or password")
     end
+  end
     
-    def destroy
-        session.delete(:user_id)
-        
-        render json: { message: 'Logout successful' }, status: :ok
-      end
+  def destroy
+    clear_server_session_data
+    clear_user_cookie
+    head :no_content    
+  end
     
-      private
+  private
+
+  def create_user_session(user)
+    cookies.signed[:user_id] = { value: user.id, httponly: true }
+  end
+
+  def clear_server_session_data
+    session[:key] = nil 
+  end
     
-      def login_params
-        params.require(:user).permit(:username, :password)
-    end
+  def clear_user_cookie
+    user_id = cookies.signed[:user_id]
+    cookies.delete(:user_id)
+  end
+
+  def render_success(message)
+    render json: { message: message }, status: :ok
+  end 
+
+  def render_unauthorized(message)
+    render json: { error: message }, status: :unauthorized
+  end
 end
