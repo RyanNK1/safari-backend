@@ -3,7 +3,7 @@ class ApplicationController < ActionController::API
     
     # Retrieves the currently logged in admin, if any.
     def admins
-        @admins ||= Organizer.find_by(id: cookies.signed[:organizer_id]) if cookies.signed[:organizer_id].present?
+        @admins ||= Admin.find_by(id: cookies.signed[:admin_id]) if cookies.signed[:admin_id].present?
     end
 
     # Retrieves the currently logged in user, if any.
@@ -19,7 +19,7 @@ class ApplicationController < ActionController::API
     # Ensures that the user or organizer is logged in before accessing certain actions.
     def require_login
         unless logged_in?
-        render json: { error: "You must be logged in to access this page." }, status: :unauthorized
+         render json: { error: "You must be logged in to access this page." }, status: :unauthorized
         end
     end
 end
