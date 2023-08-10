@@ -1,22 +1,17 @@
 class PaymentsController < ApplicationController
-    before_action :authenticate_user!, except: [:webhook]
-
-    skip_before_action :verify_authenticity_token, only: [:webhook]
-
     rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
 
     def index
-        payment=Payment.all
-        render json: payment
+        payments = Payment.all
+        render json: payments
     end
 
     def show
-        payment= find_payment
+        payment = find_payment
         render json: payment
     end
 
     def create
-        
         Stripe.api_key = Rails.application.secrets.stripe_secret_key
 
         token = params[:token]
@@ -40,23 +35,24 @@ class PaymentsController < ApplicationController
         render json: { status: 'unprocessable_entity', message: 'Payment failed. Please try again later' }
         end
     end
-    end
+    
     
     def update
-        payment= find_payment
-        payment.update(payment_params)
-        render json: payment
-      end
+        payment = find_payment
+        if payment.update(payment_params)
+         render json: payment
+        else
+         render json: { errors: payment.errors.full_messages }, status: :unprocessable_entity
+        end
+    end   
     
-      
-    
-      def destroy
+    def destroy
         payment= find_payment
         payment.destroy
         head :no_content
-      end
+    end
 
-      private
+    private
 
     def find_payment
         Payment.find(params[:id])
