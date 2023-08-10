@@ -1,5 +1,6 @@
 class ActivitiesController < ApplicationController
     rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
+    wrap_parameters :activity, include: %i[hiking sight_seeing beach boat_safari water_sports park_tour cultural_tour city_tour kid_activities]
 
     def index
         activity=Activity.all
@@ -36,10 +37,17 @@ class ActivitiesController < ApplicationController
         Activity.find(params[:id])
     end
     
+    # def activity_params
+    #     params.permit(:hiking, :sight_seeing, :beach, :boat_safari, :water_sports, :park_tour, :cultural_tour, :city_tour, :kid_activities)
+    # end
     def activity_params
-        params.permit( :Hiking, :SightSeeing, :Beach, :BoatSafari, :WaterSports, :ParkTour, :CulturalTour, :CityTour, :KidActivities)
-    end
-    
+        params.require(:activity).permit(
+          :hiking, :sight_seeing, :beach, :boat_safari,
+          :water_sports, :park_tour, :cultural_tour,
+          :city_tour, :kid_activities
+        )
+      end
+      
     def render_not_found_response
         render json: { error: "Activity not found" }, status: :not_found
     end

@@ -1,4 +1,4 @@
 class Booking < ApplicationRecord
-    has_many :packages
+    belongs_to :package
     belongs_to :payment
-end
+  end
