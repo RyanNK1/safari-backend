@@ -1,0 +1,22 @@
+<h1>Create a Booking</h1>
+
+<%= form_with(model: @booking, url: bookings_path, local: true) do |form| %>
+  <div class="field">
+    <%= form.label :package_id %>
+    <%= form.number_field :package_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :days_booked %>
+    <%= form.number_field :days_booked %>
+  </div>
+
+  <div class="field">
+    <%= form.label :number_of_people %>
+    <%= form.number_field :number_of_people %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

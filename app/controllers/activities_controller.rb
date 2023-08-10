@@ -3,8 +3,8 @@ class ActivitiesController < ApplicationController
     wrap_parameters :activity, include: %i[hiking sight_seeing beach boat_safari water_sports park_tour cultural_tour city_tour kid_activities]
 
     def index
-        activity=Activity.all
-        render json: activity
+        activities = Activity.all
+        render json: activities
     end
 
     def show
@@ -13,25 +13,30 @@ class ActivitiesController < ApplicationController
     end
 
     def create
-        activity=Activity.create(activity_params)
-        render json: activity, status: :created
+        activity = Activity.create(activity_params)
+        if activity.valid?
+         render json: activity, status: :created
+        else
+         render json: { errors: activity.errors.full_messages }, status: :unprocessable_entity
+        end
     end
     
     def update
         activity = find_activity
-        activity.update(activity_params)
-        render json: activity
-      end
+        if activity.update(activity_params)
+          render json: activity
+        else
+          render json: { errors: activity.errors.full_messages }, status: :unprocessable_entity
+        end
+    end
     
-      
-    
-      def destroy
+    def destroy
         activity= find_activity
         activity.destroy
         head :no_content
-      end
+    end
 
-      private
+    private
 
     def find_activity
         Activity.find(params[:id])

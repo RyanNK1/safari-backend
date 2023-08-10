@@ -13,24 +13,31 @@ class PackagesController < ApplicationController
 
     def create
         package = Package.create(package_params)
-        render json: package, status: :created
+        if package.save
+         render json: package, status: :created
+        else
+         render json: { errors: package.errors.full_messages }, status: :unprocessable_entity
+        end
     end
     
     def update
         package = find_package
-        package.update(package_params)
-        render json: package
-      end
+        if package.update(package_params)
+         render json: package
+        else 
+         render json: { errors: package.errors.full_messages }, status: :unprocessable_entity
+        end
+    end
     
       
     
-      def destroy
+    def destroy
         package = find_package
         package.destroy
         head :no_content
-      end
+    end
 
-      private
+    private
 
     def find_package
         Package.find(params[:id])
