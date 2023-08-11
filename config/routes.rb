@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   resources :admins
   resources :payments
   resources :users
-  resources :bookings, only: [:create, :index, :show, :update, :destroy]
+  resources :bookings
   resources :packages
   resources :activities
   # resources :notifications, only: [:index, :create, :show, :update, :destroy] do
