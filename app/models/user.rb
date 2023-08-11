@@ -8,7 +8,7 @@ class User < ApplicationRecord
     has_secure_password
     validates :confirm_password, presence: true
     validates_confirmation_of :password
-
+end
 #     def generate_password_reset_token
 #         update(password_reset_token: SecureRandom.urlsafe_base64, password_reset_sent_at: Time.zone.now)
 #     end
