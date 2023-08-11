@@ -55,3 +55,7 @@ gem 'activerecord-session_store'
 
 gem 'faker'
 
+gem 'httparty'
+gem 'dotenv-rails'
+
+
