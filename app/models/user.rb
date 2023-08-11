@@ -9,11 +9,11 @@ class User < ApplicationRecord
     validates :confirm_password, presence: true
     validates_confirmation_of :password
 
-    def generate_password_reset_token
-        update(password_reset_token: SecureRandom.urlsafe_base64, password_reset_sent_at: Time.zone.now)
-    end
+#     def generate_password_reset_token
+#         update(password_reset_token: SecureRandom.urlsafe_base64, password_reset_sent_at: Time.zone.now)
+#     end
 
-    def password_reset_token_expired?
-        password_reset_sent_at < 2.hours.ago
-    end    
-end
+#     def password_reset_token_expired?
+#         password_reset_sent_at < 2.hours.ago
+#     end    
+# end
