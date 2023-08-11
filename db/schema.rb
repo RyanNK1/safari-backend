@@ -10,7 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_10_063105) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_11_071952) do
+  create_table "access_tokens", force: :cascade do |t|
+    t.string "token"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "activities", force: :cascade do |t|
     t.boolean "hiking"
     t.boolean "sight_seeing"
@@ -37,6 +43,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_10_063105) do
     t.integer "package_id"
     t.integer "days_booked"
     t.integer "number_of_people"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "mpesas", force: :cascade do |t|
+    t.string "checkoutRequestID"
+    t.string "merchantRequestID"
+    t.string "amount"
+    t.string "mpesaReceiptNumber"
+    t.string "phoneNumber"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
