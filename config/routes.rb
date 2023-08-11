@@ -38,6 +38,6 @@ Rails.application.routes.draw do
   post '/postPayment', to: 'payments#create'
 
   # /sessions
-  resources :sessions, only: %i[create destroy]
+  # resources :sessions, only: %i[create destroy]
 
 end
