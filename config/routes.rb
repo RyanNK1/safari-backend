@@ -5,18 +5,18 @@ Rails.application.routes.draw do
   resources :bookings, only: [:create, :index, :show, :update, :destroy]
   resources :packages
   resources :activities
-  resources :notifications, only: [:index, :create, :show, :update, :destroy] do
-    collection do
-      get :count
-      post :approve_booking
-    end
-  end
+  # resources :notifications, only: [:index, :create, :show, :update, :destroy] do
+  #   collection do
+  #     get :count
+  #     post :approve_booking
+  #   end
+  # end
 
-  resources :user_notifications, only: [:index, :create, :show, :update, :destroy] do
-    collection do
-      get :count
-    end
-  end
+  # resources :user_notifications, only: [:index, :create, :show, :update, :destroy] do
+  #   collection do
+  #     get :count
+  #   end
+  # end
 
   resources :admin
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

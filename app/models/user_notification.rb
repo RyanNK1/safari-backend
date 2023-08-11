@@ -1,6 +1,6 @@
-class UserNotificationSerializer < ActiveModel::Serializer
+class UserNotification < ApplicationRecord
     belongs_to :user
-    belongs_to :organizer
-    belongs_to :event
+    # belongs_to :organizer
+    # belongs_to :event
     validates :message, presence: true
 end    
