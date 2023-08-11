@@ -55,3 +55,5 @@ gem 'activerecord-session_store'
 
 gem 'faker'
 
+gem 'pg'
+
