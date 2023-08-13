@@ -1,7 +1,7 @@
 class AdminsSessionsController < ApplicationController
     # Admins
     def create
-      admin = Admin.find_by(adminname: params[:adminname])
+      admin = Admin.find_by(admin_name: params[:admin_name])
       if admin&.authenticate(params[:password])
         cookies.signed[:admin_id] = { value: admin.id, httponly: true }
         render json: { message: "Admin logged in successfully" }, status: :ok

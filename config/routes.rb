@@ -18,23 +18,23 @@ Rails.application.routes.draw do
   #   end
   # end
 
-  resources :admin
+  # resources :admin
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
   # root "articles#index"
   post "/signup", to: "users#create"
   post "/login", to: "sessions#create"
-  get "/me", to: "users#show_me"
+  # get "/me", to: "users#show"
   delete "/logout", to: "sessions#destroy"
-  post "/admins/:id", to: "admins#create"
-  post "/loginadm", to: "admins_sessions#create"
-  get "/meorg", to: "admins#show_meorg"
+  # post "/admins/:id", to: "admins#create"
+  post "/loginorg", to: "admins_sessions#create"
+  # get "/meorg", to: "admins#show_meorg"
   delete "/logoutadm", to: "admins_sessions#destroy"
-  get "/admin/:id", to: "admins#show"
-  post "/admins/:id", to: "admins#update"
-  post "/bookings", to: "bookings#create"
-  get "/user_homepage", to: "users#homepage", as: "user_homepage"
+  # get "/admin/:id", to: "admins#show"
+  # post "/admins/:id", to: "admins#update"
+  # post "/bookings", to: "bookings#create"
+  # get "/user_homepage", to: "users#homepage", as: "user_homepage"
   post '/postPayment', to: 'payments#create'
 
   # /sessions
