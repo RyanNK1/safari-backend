@@ -25,16 +25,16 @@ Rails.application.routes.draw do
   # root "articles#index"
   post "/signup", to: "users#create"
   post "/login", to: "sessions#create"
-  # get "/me", to: "users#show"
+  get "/me", to: "users#show"
   delete "/logout", to: "sessions#destroy"
   # post "/admins/:id", to: "admins#create"
   post "/loginorg", to: "admins_sessions#create"
-  # get "/meorg", to: "admins#show_meorg"
+  get "/meorg", to: "admins#show_meorg"
   delete "/logoutadm", to: "admins_sessions#destroy"
   # get "/admin/:id", to: "admins#show"
   # post "/admins/:id", to: "admins#update"
   # post "/bookings", to: "bookings#create"
-  # get "/user_homepage", to: "users#homepage", as: "user_homepage"
+  get "/user_homepage", to: "users#homepage", as: "user_homepage"
   post '/postPayment', to: 'payments#create'
 
   # /sessions
